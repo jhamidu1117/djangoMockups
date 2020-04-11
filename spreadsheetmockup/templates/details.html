@@ -1,0 +1,85 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+<table class="table">
+	<thead class="thead-dark">
+	<tr>
+		<th scope="col">field</th>
+		<th scope="col">value</th>
+		<th scope="col">edit</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>name</td>
+		<td>{{file_template_detail.name}}</td>
+		<td>
+			<a class="btn btn-outline-info btn-sm btn-block" href="{% url 'update' pk=file_template_detail.pk %}">
+				<span class="glyphicon glyphicon-tree-deciduous">
+				edit
+				</span>
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td>{{file_template_detail.description}}</td>
+		<td>
+			<a class="btn btn-outline-info btn-sm btn-block" href="#">
+				<span class="glyphicon glyphicon-tree-deciduous">
+				edit
+				</span>
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td>Source File</td>
+		<td>{{file_template_detail.fileImport}}</td>
+		<td>
+			<a class="btn btn-outline-info btn-sm btn-block" href="#">
+				<span class="glyphicon glyphicon-tree-deciduous">
+				edit
+				</span>
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td>Columns</td>
+		<td>{{file_template_detail.column_labels}}</td>
+		<td>
+			<a class="btn btn-outline-info btn-sm btn-block" href="#">
+				<span class="glyphicon glyphicon-tree-deciduous">
+				edit
+				</span>
+			</a>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+
+<table class="table">
+	<thead class="thead-dark">
+	<tr>
+		<th scope="col">Report instance</th>
+		<th scope="col">Current File</th>
+		<th scope="col">Submit</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for report in reports %}
+	<tr>
+		<td>{{report.report_id}}</td>
+		<td>{{report.live_file}}</td>
+		<td>
+			<a class="btn btn-outline-info btn-sm btn-block" href="{% url 'submit' pk=report.pk %}">
+				<span class="glyphicon glyphicon-tree-deciduous">
+				submit
+				</span>
+			</a>
+		</td>
+	</tr>
+	{% endfor %}
+
+{% endblock %}
