@@ -28,7 +28,7 @@ def submit_live_report(request, pk):
     live_report = get_object_or_404(LiveReport, pk=pk)
     form = LiveReportForm(instance=live_report)
     if request.method == 'POST':
-        form = LiveReportForm(request.POST, request.FILES)
+        form = LiveReportForm(request.POST, request.FILES, instance=live_report)
         if form.is_valid():
             my_engine = PandaEngine()
             live_report = form.save(commit=False)
