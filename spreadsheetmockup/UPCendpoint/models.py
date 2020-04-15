@@ -13,7 +13,7 @@ class HandSet:
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=200)
     upc = models.CharField(max_length=50)
-    img = models.ImageField()
+    img = models.ImageField(upload_to='handsets')
 
 
 class Snippet(models.Model):

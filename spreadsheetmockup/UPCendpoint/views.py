@@ -29,18 +29,21 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
+class SnippetViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-@csrf_exempt
 def snippet_list(request):
     """
     List all code snippets, or create a new snippet.
     """
     if request.method == 'GET':
-        snippets = SnippetSerializer.objects.all()
+        snippets = Snippet.objects.all()
         serializer = SnippetSerializer(snippets, many=True)
         return JsonResponse(serializer.data, safe=False)
 
