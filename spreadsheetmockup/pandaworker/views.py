@@ -76,7 +76,7 @@ def update_file_template(request, pk):
     template_to_update = get_object_or_404(FileTemplate, pk=pk)
     form = FileTemplateForm(instance=template_to_update)
     if request.method == 'POST':
-        form = FileTemplateForm(request.POST, request.FILES)
+        form = FileTemplateForm(request.POST, request.FILES, instance=template_to_update)
         if form.is_valid():
             my_engine = PandaEngine()
             file = form.save(commit=False)
