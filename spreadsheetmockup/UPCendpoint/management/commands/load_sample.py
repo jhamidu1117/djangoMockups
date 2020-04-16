@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.core.exceptions import ValidationError
 from UPCendpoint.models import HandSet
 import os
 import re
@@ -24,6 +25,17 @@ class Command(BaseCommand):
                 img_upc = re.sub('.jp*e*g', "", img)
                 if upc == img_upc:
                     print(upc + "==" + img_upc)
-                    correct_img =  Image.open(os.path.join(image_dir, img))
+                    correct_img = Image.open(os.path.join(image_dir, img))
+                    correct_img_path = os.path.join(image_dir, img)
                     print(correct_img)
-                    # hand_set = HandSet(model_name=row['Model'], title=row['Title'], category=row['CategoryName'], upc=row['UPC'], img=correct_img)
+                    hand_set = HandSet(model_id=row['Model'], title=row['Title'],
+                                       category=row['CategoryName'],
+                                       upc=row['UPC'], img=correct_img_path)
+                    try:
+                        hand_set.full_clean(exclude=None)
+                        print(hand_set.model_id, hand_set.title, hand_set.category, hand_set.upc, hand_set.img)
+                        hand_set.save()
+                    except ValidationError as e:
+                        print(e)
+                        pass
+

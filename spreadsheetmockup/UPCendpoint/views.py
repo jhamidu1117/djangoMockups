@@ -3,10 +3,11 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import routers, serializers
 from django.http import HttpResponse, JsonResponse
+
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from .serializers import UserSerializer, GroupSerializer, SnippetSerializer
-from .models import Snippet
+from .serializers import UserSerializer, GroupSerializer, SnippetSerializer, HandSetSerializer
+from .models import Snippet, HandSet
 
 # Create your views here.
 
@@ -35,6 +36,15 @@ class SnippetViewSet(viewsets.ModelViewSet):
     """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class HandsetViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = HandSet.objects.all()
+    serializer_class = HandSetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 

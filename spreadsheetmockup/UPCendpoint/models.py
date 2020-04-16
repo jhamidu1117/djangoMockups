@@ -8,11 +8,11 @@ LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
-class HandSet:
-    model_name = models.CharField(max_length=200)
+class HandSet(models.Model):
+    model_id = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     category = models.CharField(max_length=200)
-    upc = models.CharField(max_length=50)
+    upc = models.CharField(max_length=50, unique=True)
     img = models.ImageField(upload_to='handsets')
 
 
