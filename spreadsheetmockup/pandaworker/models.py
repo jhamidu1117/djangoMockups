@@ -32,6 +32,7 @@ class LiveReport(models.Model):
     template = models.ForeignKey(FileTemplate, on_delete=models.CASCADE)
     report_id = models.CharField(blank=True, max_length=200)
     live_file = models.FileField(blank=True)
+    template_columns = models.TextField(blank=True)
     live_data = models.TextField(blank=True)
 
     def __str__(self):

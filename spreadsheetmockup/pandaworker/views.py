@@ -64,7 +64,11 @@ def create_file_template(request):
             file.save()
             live_list = []
             for i in range(0, file.live_instances):
-                live_list.append(LiveReport(template=file, report_id=file.name + ":" + str(i)))
+                live_list.append(LiveReport(template=file,
+                                            report_id=file.name + ":" + str(i),
+                                            template_columns=file.column_labels,
+                                            ))
+
                 live_list[i].save()
             return redirect('home')
         else:
